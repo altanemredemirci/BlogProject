@@ -18,5 +18,10 @@ namespace BlogProject.Entities
         public string Description { get; set; }
 
         public virtual List<Blog> Blogs { get; set; }
+
+        public Category()
+        {
+            Blogs = new List<Blog>();
+        }
     }
 }

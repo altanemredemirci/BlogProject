@@ -21,5 +21,11 @@ namespace BlogProject.Entities
         public virtual User Owner { get; set; }        
         public virtual List<Comment> Comments { get; set; }
         public virtual List<Like> Likes { get; set; }
+
+        public Blog()
+        {
+            Comments = new List<Comment>();
+            Likes = new List<Like>();
+        }
     }
 }

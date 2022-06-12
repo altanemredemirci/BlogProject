@@ -12,7 +12,7 @@ namespace BlogProject.BLL
         public Test()
         {
             DatabaseContext db = new DatabaseContext();
-            db.Database.CreateIfNotExists();
+            db.Users.ToList();
         }
     }
 }

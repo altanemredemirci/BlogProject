@@ -9,7 +9,7 @@ namespace BlogProject.Entities
 {
     public class Comment:MyEntityBase
     {
-        [Required, StringLength(50)]
+        [Required, StringLength(150)]
         public string Text { get; set; }
 
 

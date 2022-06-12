@@ -27,7 +27,7 @@ namespace BlogProject.DAL
 
         public DatabaseContext():base("MSSQL")
         {
-
+            Database.SetInitializer(new MyInitializer());
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
