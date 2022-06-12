@@ -13,6 +13,9 @@ namespace BlogProject.WEBUI.Controllers
         public ActionResult Index()
         {
             Test test = new Test();
+            //test.InsertTest();
+            //test.UpdateTest();
+            test.DeleteTest();
             return View();
         }
     }
