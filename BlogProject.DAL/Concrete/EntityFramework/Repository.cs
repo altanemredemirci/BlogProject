@@ -26,6 +26,11 @@ namespace BlogProject.DAL.EntityFramework
             return _objectSet.ToList();
         }
 
+        public IQueryable<T> ListQueryable()
+        {
+            return _objectSet.AsQueryable<T>();
+        }
+
         public List<T> List(Expression<Func<T,bool>> where)
         {
             return _objectSet.Where(where).ToList();

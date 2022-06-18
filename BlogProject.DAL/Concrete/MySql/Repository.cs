@@ -35,6 +35,11 @@ namespace BlogProject.DAL.Concrete.MySql
             throw new NotImplementedException();
         }
 
+        public IQueryable<T> ListQueryable()
+        {
+            throw new NotImplementedException();
+        }
+
         public int Save()
         {
             throw new NotImplementedException();

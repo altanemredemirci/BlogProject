@@ -10,6 +10,7 @@ namespace BlogProject.DAL.Abstract
     internal interface IRepository<T>
     {
         List<T> List();
+        IQueryable<T> ListQueryable();
         List<T> List(Expression<Func<T,bool>> where);
         int Insert(T obj);
         int Update();

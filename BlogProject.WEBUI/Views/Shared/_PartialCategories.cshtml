@@ -1,0 +1,15 @@
+﻿@using BlogProject.Entities
+@using BlogProject.BLL
+@{ 
+    CategoryManager cm = new CategoryManager();
+    List<Category> list = cm.GetCategories();
+}
+
+<p class="lead">Kategoriler</p>
+<div class="list-group">
+    <a href="@Url.Action("Index","Home")" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span> Tümü</a>
+    @foreach (Category item in list)
+    {
+<a href="/Home/ByCategory/@item.Id" title="@item.Description" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span> @item.Title</a>
+    }
+</div>
