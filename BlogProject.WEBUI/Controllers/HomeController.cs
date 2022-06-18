@@ -15,7 +15,8 @@ namespace BlogProject.WEBUI.Controllers
             Test test = new Test();
             //test.InsertTest();
             //test.UpdateTest();
-            test.DeleteTest();
+            //test.DeleteTest();
+            //test.CommentTest();
             return View();
         }
     }

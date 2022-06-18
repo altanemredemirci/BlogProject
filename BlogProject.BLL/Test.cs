@@ -1,4 +1,4 @@
-﻿using BlogProject.DAL;
+﻿using BlogProject.DAL.EntityFramework;
 using BlogProject.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,8 @@ namespace BlogProject.BLL
     {
         private Repository<Category> repo_category = new Repository<Category>();
         private Repository<User> repo_user = new Repository<User>();
+        private Repository<Blog> repo_blog = new Repository<Blog>();
+        private Repository<Comment> repo_comment = new Repository<Comment>();
         public Test()
         {
             
@@ -35,7 +37,6 @@ namespace BlogProject.BLL
                 ModifiedUsername = "aabb"
             });
         }
-
         public void UpdateTest()
         {
             User user = repo_user.Find(x => x.Username == "aabb");
@@ -46,7 +47,6 @@ namespace BlogProject.BLL
                 int result = repo_user.Update();
             }
         }
-
         public void DeleteTest()
         {
             User user = repo_user.Find(x => x.Username == "xxx");
@@ -55,6 +55,22 @@ namespace BlogProject.BLL
             {
                 int result = repo_user.Delete(user);
             }
+        }
+
+        public void CommentTest()
+        {
+            User user = repo_user.Find(x => x.Id == 1);
+            Blog blog = repo_blog.Find(x => x.Id == 3);
+            Comment comment = new Comment()
+            {
+                Text = "Bu bir test'dir",
+                CreateOn = DateTime.Now,
+                ModifiedOn = DateTime.Now,
+                ModifiedUsername = "altanemre",
+                Blog = blog,
+                Owner = user
+            };
+            repo_comment.Insert(comment);
         }
     }
 }

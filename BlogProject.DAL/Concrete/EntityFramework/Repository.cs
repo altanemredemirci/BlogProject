@@ -1,4 +1,5 @@
-﻿using BlogProject.Entities;
+﻿using BlogProject.DAL.Abstract;
+using BlogProject.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,16 +8,17 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogProject.DAL
+namespace BlogProject.DAL.EntityFramework
 {
-    public class Repository<T> where T : class
+    public class Repository<T> : RepositoryBase,IRepository<T> where T : class
     {
-        private DatabaseContext db = new DatabaseContext();
+        //private DatabaseContext db = new DatabaseContext(); //singleton
+        
         private DbSet<T> _objectSet;
 
         public Repository()
         {
-            _objectSet = db.Set<T>();
+           _objectSet = db.Set<T>();
         }
 
         public List<T> List()
@@ -48,7 +50,7 @@ namespace BlogProject.DAL
             _objectSet.Remove(obj);
             return Save();
         }
-        private int Save()
+        public int Save()
         {            
             return db.SaveChanges();
         }
