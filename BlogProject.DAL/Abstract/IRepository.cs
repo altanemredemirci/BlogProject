@@ -13,7 +13,7 @@ namespace BlogProject.DAL.Abstract
         IQueryable<T> ListQueryable();
         List<T> List(Expression<Func<T,bool>> where);
         int Insert(T obj);
-        int Update();
+        int Update(T obj);
         int Delete(T obj);
         int Save();
 

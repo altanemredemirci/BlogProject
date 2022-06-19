@@ -1,0 +1,36 @@
+﻿@model BlogProject.Entities.ValueObjects.LoginViewModel
+@{
+    ViewBag.Title = "BlogProject - Giriş";
+}
+<link href="~/Content/css/login-register.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <h3 class="text-center" style="color:cornflowerblue">LOGIN</h3>
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.TextBoxFor(model => model.Username, new { @class = "fadeIn second", placeholder = "Kullanıcı Adınız" })
+            @Html.TextBoxFor(model => model.Password, new { @class = "fadeIn third", placeholder = "Şifreniz",type="password"})
+            <input type="submit" class="fadeIn fourth" value="Giriş">
+        }
+
+        
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            @*<a class="underlineHover" href="#">Forgot Password?</a>*@
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("footer").parent().hide();
+    })
+</script>

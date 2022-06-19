@@ -43,10 +43,26 @@ namespace BlogProject.DAL.EntityFramework
         public int Insert(T obj)
         {
             _objectSet.Add(obj);
+            if(obj is MyEntityBase)
+            {
+                MyEntityBase o = obj as MyEntityBase;
+                DateTime now = DateTime.Now;
+                o.CreateOn = now;
+                o.ModifiedOn = now;
+                o.ModifiedUsername = "system"; // TODO: İşlem yapan username yazılmalı
+            }
             return Save();
         }
-        public int Update()
-        {            
+        public int Update(T obj)
+        {
+            if (obj is MyEntityBase)
+            {
+                MyEntityBase o = obj as MyEntityBase;
+                DateTime now = DateTime.Now;
+                o.CreateOn = now;
+                o.ModifiedOn = now;
+                o.ModifiedUsername = "system"; // TODO: İşlem yapan username yazılmalı
+            }
             return Save();
         }
 
