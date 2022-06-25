@@ -77,9 +77,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-user"></span> altanemre
-                        </a>
+                        @if (Session["login"] != null)
+                        {
+                            <a href="#">
+                                <span class="glyphicon glyphicon-user"></span> altanemre
+                            </a>
+                        }
+
                     </li>
                     <li>
                         <a href="/Home/Logout">

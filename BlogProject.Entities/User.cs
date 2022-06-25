@@ -15,8 +15,10 @@ namespace BlogProject.Entities
         public string Surname { get; set; }
         [Required,StringLength(25)]
         public string Username { get; set; }
+
         [Required, StringLength(70),DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
         [Required, StringLength(25)]
         public string Password { get; set; }
         public bool IsActive { get; set; }

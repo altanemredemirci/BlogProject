@@ -14,12 +14,19 @@
 
         @using (Html.BeginForm())
         {
+            @Html.ValidationSummary(false)
+
+            if(ViewBag.SetLink != null)
+                {
+                    <a href="@ViewBag.SetLink" class="btn btn-primary">Activate</a>
+                }
+
             @Html.TextBoxFor(model => model.Username, new { @class = "fadeIn second", placeholder = "Kullanıcı Adınız" })
-            @Html.TextBoxFor(model => model.Password, new { @class = "fadeIn third", placeholder = "Şifreniz",type="password"})
+            @Html.TextBoxFor(model => model.Password, new { @class = "fadeIn third", placeholder = "Şifreniz", type = "password" })
             <input type="submit" class="fadeIn fourth" value="Giriş">
         }
 
-        
+
 
         <!-- Remind Passowrd -->
         <div id="formFooter">

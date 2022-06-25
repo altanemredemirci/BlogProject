@@ -44,7 +44,7 @@ namespace BlogProject.BLL
             if (user != null)
             {
                 user.Username = "xxx";
-                int result = repo_user.Update();
+                int result = repo_user.Update(user);
             }
         }
         public void DeleteTest()

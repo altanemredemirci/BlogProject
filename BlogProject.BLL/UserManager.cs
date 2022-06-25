@@ -1,5 +1,6 @@
 ﻿using BlogProject.DAL.EntityFramework;
 using BlogProject.Entities;
+using BlogProject.Entities.Messages;
 using BlogProject.Entities.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -20,17 +21,18 @@ namespace BlogProject.BLL
             // Aktivasyon emaili gönderimi
 
             User user = repo_user.Find(x => x.Username == data.Username || x.Email == data.Email);
-            BusinessLayerResult<User> layerResult = new BusinessLayerResult<User>();
+            BusinessLayerResult<User> res = new BusinessLayerResult<User>();
 
             if (user != null)
             {
                 if (user.Username == data.Username)
                 {
-                    layerResult.Errors.Add("Kayıtlı kullanıcı adı");
+                    res.AddError(ErrorMessageCode.UsernameAlreadyExists, "Kayıtlı kullanıcı adı");
+                    
                 }
                 if (user.Email == data.Email)
                 {
-                    layerResult.Errors.Add("Kayıtlı email adresi");
+                    res.AddError(ErrorMessageCode.EmailAlreadyExists, "Kayıtlı email adresi");                   
                 }
             }
             else
@@ -47,12 +49,38 @@ namespace BlogProject.BLL
 
                 if (dbResult > 0)
                 {
-                    layerResult.Result = repo_user.Find(x => x.Email == data.Email && x.Username == data.Username);
+                    res.Result = repo_user.Find(x => x.Email == data.Email && x.Username == data.Username);
                     //TODO: Aktivasyo mail'i atılacak
                     //layerResult.Result.ActivateGuid
                 }
             }
-            return layerResult;
+            return res;
+        }
+
+        public BusinessLayerResult<User> LoginUser(LoginViewModel data)
+        {
+            //Giriş Kontrolü
+            //Hesap aktive edilmiş mi?
+
+            BusinessLayerResult<User> res = new BusinessLayerResult<User>();
+            res.Result = repo_user.Find(x => x.Username == data.Username && x.Password == data.Password);
+
+            if (res.Result != null)
+            {
+                if (!res.Result.IsActive) //res.Resut.IsActive==false
+                {
+                    res.AddError(ErrorMessageCode.UserIsNotActive, "Kullanıcı aktifleştirilmemiştir.");
+                    res.AddError(ErrorMessageCode.CheckYourEail, "Lütfen Email adresinizi kontrol ediniz.");
+                }
+            }
+            else
+            {
+                res.AddError(ErrorMessageCode.UsernameOrPassWrong, "Kullanıcı adı veya şifre hatası.");
+            }
+
+            return res;
+       
+
         }
     }
 }

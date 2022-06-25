@@ -12,8 +12,8 @@
             <h3 class="text-center" style="color:cornflowerblue">REGISTER</h3>
         </div>
 
-        @using (Html.BeginForm())
-        {
+        @using (Html.BeginForm())        {
+           
             @Html.ValidationSummary(false)
             @Html.TextBoxFor(model => model.Username, new { @class = "fadeIn second", placeholder = "Kullanıcı Adınız" })
             @Html.TextBoxFor(model => model.Email, new { @class = "fadeIn second", placeholder = "Email Adresiniz" })

@@ -64,6 +64,10 @@
     <Compile Include="Concrete\EntityFramework\RepositoryBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlogProject.Common\BlogProject.Common.csproj">
+      <Project>{b1d0cf14-5f94-4ba4-8457-3e15f0737042}</Project>
+      <Name>BlogProject.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlogProject.Entities\BlogProject.Entities.csproj">
       <Project>{dbebf6fc-d586-4196-99db-2408cbc61c9b}</Project>
       <Name>BlogProject.Entities</Name>

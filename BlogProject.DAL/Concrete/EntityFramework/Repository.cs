@@ -1,4 +1,5 @@
-﻿using BlogProject.DAL.Abstract;
+﻿using BlogProject.Common;
+using BlogProject.DAL.Abstract;
 using BlogProject.Entities;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace BlogProject.DAL.EntityFramework
                 DateTime now = DateTime.Now;
                 o.CreateOn = now;
                 o.ModifiedOn = now;
-                o.ModifiedUsername = "system"; // TODO: İşlem yapan username yazılmalı
+                o.ModifiedUsername = App.Common.GetUsername(); // TODO: İşlem yapan username yazılmalı
             }
             return Save();
         }
@@ -61,7 +62,7 @@ namespace BlogProject.DAL.EntityFramework
                 DateTime now = DateTime.Now;
                 o.CreateOn = now;
                 o.ModifiedOn = now;
-                o.ModifiedUsername = "system"; // TODO: İşlem yapan username yazılmalı
+                o.ModifiedUsername = App.Common.GetUsername(); // TODO: İşlem yapan username yazılmalı
             }
             return Save();
         }

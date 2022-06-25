@@ -1,5 +1,6 @@
 ﻿using BlogProject.BLL;
 using BlogProject.Entities;
+using BlogProject.Entities.Messages;
 using BlogProject.Entities.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace BlogProject.WEBUI.Controllers
     public class HomeController : Controller
     {
         private BlogManager bm = new BlogManager();
+        private UserManager um = new UserManager();
         // GET: Home
         public ActionResult Index()
         {
@@ -37,8 +39,7 @@ namespace BlogProject.WEBUI.Controllers
                 return HttpNotFound();
             }
 
-            return View("Index", cat.Blogs.OrderByDescending(x=> x.ModifiedOn).ToList());
-          
+            return View("Index", cat.Blogs.OrderByDescending(x=> x.ModifiedOn).ToList());          
         }
 
         public ActionResult MostLiked()
@@ -60,7 +61,27 @@ namespace BlogProject.WEBUI.Controllers
         {
             // Giriş Kontrolü ve yönlendirme
             // Session'a kullanıcı bilgisi ekleme
-            return View();
+
+            if (ModelState.IsValid)
+            {
+                BusinessLayerResult<User> res = um.LoginUser(model);
+
+                if (res.Errors.Count > 0)
+                {
+                    if(res.Errors.Find(x=> x.Code == ErrorMessageCode.UserIsNotActive) != null)
+                    {
+                        ViewBag.SetLink = "http://Home/UserActivate";
+                    }
+
+                    res.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
+                    return View(model);
+                }
+
+                Session["login"] = res.Result;    // Session'a kullanıcı ekleme
+                return RedirectToAction("Index"); // yönlendirme...
+            }
+
+            return View(model);
         }
 
         public ActionResult Register()
@@ -73,12 +94,12 @@ namespace BlogProject.WEBUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserManager um = new UserManager();
+               
                 BusinessLayerResult<User> res = um.RegisterUser(model);
 
                 if (res.Errors.Count > 0)
                 {
-                    res.Errors.ForEach(x => ModelState.AddModelError("", x));
+                    res.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
                     return View(model);
                 }
                 return RedirectToAction("RegisterOk");
@@ -100,7 +121,9 @@ namespace BlogProject.WEBUI.Controllers
 
         public ActionResult Logout()
         {
-            return View();
+            Session.Clear();
+
+            return RedirectToAction("Index");
         }
     }
 }
