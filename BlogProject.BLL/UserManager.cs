@@ -43,7 +43,8 @@ namespace BlogProject.BLL
                     Username=data.Username,
                     Email=data.Email,
                     Password=data.Password,
-                    ActivateGuid=Guid.NewGuid(),                   
+                    ActivateGuid=Guid.NewGuid(),   
+                    ProfileImageFileName="user.png",
                     IsActive=false,
                     IsAdmin=false
                 });
@@ -112,15 +113,23 @@ namespace BlogProject.BLL
             return res;
         }
 
-        public BusinessLayerResult<User> GetUserById(int id)
+        public BusinessLayerResult<User> GetUserById(int? id)
         {
             BusinessLayerResult<User> res = new BusinessLayerResult<User>();
-            res.Result = repo_user.Find(x => x.Id == id);
-
-            if (res.Result == null)
+            if (id == null)
             {
-                res.AddError(ErrorMessageCode.UserIsNotFound, "Kullanıcı bulunamadı");
+                res.AddError(ErrorMessageCode.UserIsNotFound, "Kullanıcı bulunamadı");                
             }
+            else
+            {
+                res.Result = repo_user.Find(x => x.Id == id);
+
+                if (res.Result == null)
+                {
+                    res.AddError(ErrorMessageCode.UserIsNotFound, "Kullanıcı bulunamadı");
+                }
+            }
+           
             return res;
 
         }

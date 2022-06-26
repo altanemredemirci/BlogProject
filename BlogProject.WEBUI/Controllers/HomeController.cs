@@ -2,6 +2,7 @@
 using BlogProject.Entities;
 using BlogProject.Entities.Messages;
 using BlogProject.Entities.ValueObjects;
+using BlogProject.WEBUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,16 +103,20 @@ namespace BlogProject.WEBUI.Controllers
                     res.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
                     return View(model);
                 }
-                return RedirectToAction("RegisterOk");
+
+                OkViewModel notifyModel = new OkViewModel()
+                {
+                    Title = "Kayıt Başarılı",
+                    RedirectingUrl = "/Home/Login"
+                };
+
+                notifyModel.Items.Add("Lütfen email adresinize gönderilen aktivasyon linkine tıklayarak hesabınızı aktifleştiriniz. Hesabınızı aktifleştirmeden blog yazmaz ve beğeni yapamazsınız.");
+
+                return View("OK", notifyModel);
             }
            
             return View(model);
-        }
-
-        public ActionResult RegisterOk()
-        {
-            return View();
-        }
+        } 
 
         public ActionResult UserActivate(Guid id)
         {
@@ -119,25 +124,23 @@ namespace BlogProject.WEBUI.Controllers
 
             if (res.Errors.Count > 0)
             {
-                TempData["errors"] = res.Errors;
-                return RedirectToAction("UserActivateCancel");
-            }
-            return View("UserActivateOk");
-        }
-        public ActionResult UserActivateOk()
-        {
-            return View();
-        }
-        public ActionResult UserActivateCancel()
-        {
-            List<ErrorMessageObj> errors = null;
-            if (TempData["errors"] != null)
-            {
-                errors = TempData["errors"] as List<ErrorMessageObj>;
-            }
-            return View(errors);
-        }
+                ErrorViewModel notifyModel = new ErrorViewModel()
+                {
+                    Title = "Geçersiz İşlem",
+                    Items=res.Errors
+                };
 
+                return View("Error", notifyModel);
+            }
+            OkViewModel okModel = new OkViewModel()
+            {
+                Title = "Hesap Aktifleştirildi",
+                RedirectingUrl = "/Home/Login"
+            };
+
+            okModel.Items.Add("Hesabınız aktifleştirilmiştir. Artık blog yazabilir vey beğeni yapabilirsiniz");
+            return View("OK", okModel);
+        }
         public ActionResult Logout()
         {
             Session.Clear();
@@ -153,7 +156,12 @@ namespace BlogProject.WEBUI.Controllers
 
             if (res.Errors.Count > 0)
             {
-                // TODO: kullanıcıyı bir hata ekranına yönlendirelim.
+                ErrorViewModel notifyModel = new ErrorViewModel()
+                {
+                    Title = "Hata Oluştu",
+                    Items = res.Errors
+                };
+                return View("Error", notifyModel);
             }
 
             return View(res.Result);
