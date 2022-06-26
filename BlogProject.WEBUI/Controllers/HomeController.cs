@@ -113,10 +113,29 @@ namespace BlogProject.WEBUI.Controllers
             return View();
         }
 
-        public ActionResult UserActivate(Guid activate_id)
+        public ActionResult UserActivate(Guid id)
         {
-            //Kullanıcı aktivasyonu sağlanacak...
+            BusinessLayerResult<User> res = um.ActivateUser(id);
+
+            if (res.Errors.Count > 0)
+            {
+                TempData["errors"] = res.Errors;
+                return RedirectToAction("UserActivateCancel");
+            }
+            return View("UserActivateOk");
+        }
+        public ActionResult UserActivateOk()
+        {
             return View();
+        }
+        public ActionResult UserActivateCancel()
+        {
+            List<ErrorMessageObj> errors = null;
+            if (TempData["errors"] != null)
+            {
+                errors = TempData["errors"] as List<ErrorMessageObj>;
+            }
+            return View(errors);
         }
 
         public ActionResult Logout()
@@ -124,6 +143,35 @@ namespace BlogProject.WEBUI.Controllers
             Session.Clear();
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ShowProfile()
+        {
+            User currentUser = Session["login"] as User;
+
+            BusinessLayerResult<User> res = um.GetUserById(currentUser.Id);
+
+            if (res.Errors.Count > 0)
+            {
+                // TODO: kullanıcıyı bir hata ekranına yönlendirelim.
+            }
+
+            return View(res.Result);
+        }
+
+        public ActionResult EditProfile()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditProfile(User user)
+        {
+            return View();
+        }
+
+        public ActionResult DeleteProfile()
+        {
+            return View();
         }
     }
 }

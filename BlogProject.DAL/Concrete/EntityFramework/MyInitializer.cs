@@ -23,6 +23,7 @@ namespace BlogProject.DAL.EntityFramework
                 IsAdmin = true,
                 Username = "altanemre",
                 Password = "1",
+                ProfileImageFileName="user.png",
                 CreateOn = DateTime.Now,
                 ModifiedOn = DateTime.Now.AddMinutes(5),
                 ModifiedUsername = "altanemre"
@@ -39,6 +40,7 @@ namespace BlogProject.DAL.EntityFramework
                 IsAdmin = false,
                 Username = "altanuras",
                 Password = "1",
+                ProfileImageFileName = "user.png",
                 CreateOn = DateTime.Now,
                 ModifiedOn = DateTime.Now.AddMinutes(5),
                 ModifiedUsername = "altanemre"
@@ -59,6 +61,7 @@ namespace BlogProject.DAL.EntityFramework
                     IsAdmin = false,
                     Username = $"user{i}",
                     Password = "123",
+                    ProfileImageFileName = "user.png",
                     CreateOn = DateTime.Now,
                     ModifiedOn = DateTime.Now.AddMinutes(5),
                     ModifiedUsername = $"user{i}"

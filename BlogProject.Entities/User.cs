@@ -23,6 +23,9 @@ namespace BlogProject.Entities
         public string Password { get; set; }
         public bool IsActive { get; set; }
 
+        [StringLength(30)] //user_12.png
+        public string ProfileImageFileName { get; set; }
+
         [Required]
         public Guid ActivateGuid { get; set; }//www.google.com/1678-AB12-6789-56BA
         public bool IsAdmin { get; set; }

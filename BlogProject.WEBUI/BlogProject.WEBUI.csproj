@@ -103,6 +103,7 @@
     <Content Include="Content\img\320x150.png" />
     <Content Include="Content\img\500x200.png" />
     <Content Include="Content\img\800x300.png" />
+    <Content Include="Content\img\user.png" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\jquery.js" />
@@ -142,6 +143,9 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\RegisterOk.cshtml" />
+    <Content Include="Views\Home\UserActivateOk.cshtml" />
+    <Content Include="Views\Home\UserActivateCancel.cshtml" />
+    <Content Include="Views\Home\ShowProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

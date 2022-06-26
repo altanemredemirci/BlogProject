@@ -12,6 +12,9 @@ namespace BlogProject.Entities.Messages
         EmailAlreadyExists = 102,
         UserIsNotActive = 151,
         UsernameOrPassWrong = 152,
-        CheckYourEail = 153
+        CheckYourEail = 153,
+        UserAlreadyActivate = 154,
+        ActivateIdDoesNotExists = 155,
+        UserIsNotFound = 156
     }
 }

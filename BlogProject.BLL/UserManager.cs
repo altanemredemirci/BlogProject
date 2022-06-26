@@ -1,4 +1,5 @@
-﻿using BlogProject.DAL.EntityFramework;
+﻿using BlogProject.Common.Helpers;
+using BlogProject.DAL.EntityFramework;
 using BlogProject.Entities;
 using BlogProject.Entities.Messages;
 using BlogProject.Entities.ValueObjects;
@@ -50,8 +51,12 @@ namespace BlogProject.BLL
                 if (dbResult > 0)
                 {
                     res.Result = repo_user.Find(x => x.Email == data.Email && x.Username == data.Username);
-                    //TODO: Aktivasyo mail'i atılacak
-                    //layerResult.Result.ActivateGuid
+
+                    string siteUrl = ConfigHelper.Get<string>("SiteRootUrl");
+                    string activaUrl = $"{siteUrl}Home/UserActivate/{res.Result.ActivateGuid}";
+                    string body = $"Merhaba {res.Result.Username};<br><br>Hesabınızı aktifleştirmek için <a href='{activaUrl}' target='_blank'>tıklayınız</a>";
+
+                    MailHelper.SendMail(body, res.Result.Email, "Blog Project Hesap Aktifleştirme");
                 }
             }
             return res;
@@ -80,6 +85,43 @@ namespace BlogProject.BLL
 
             return res;
        
+
+        }
+
+        public BusinessLayerResult<User> ActivateUser(Guid activateId)
+        {
+            BusinessLayerResult<User> res = new BusinessLayerResult<User>();
+            res.Result = repo_user.Find(x => x.ActivateGuid == activateId);
+
+            if (res.Result != null)
+            {
+                if (res.Result.IsActive)
+                {
+                    res.AddError(ErrorMessageCode.UserAlreadyActivate, "Kullanıcı zaten aktif edilmiştir.");
+                    return res;
+                }
+
+                res.Result.IsActive = true;
+                repo_user.Update(res.Result);
+            }
+            else
+            {
+                res.AddError(ErrorMessageCode.ActivateIdDoesNotExists, "Aktifleştirilecek kullanıcı bulunamadı");
+            }
+
+            return res;
+        }
+
+        public BusinessLayerResult<User> GetUserById(int id)
+        {
+            BusinessLayerResult<User> res = new BusinessLayerResult<User>();
+            res.Result = repo_user.Find(x => x.Id == id);
+
+            if (res.Result == null)
+            {
+                res.AddError(ErrorMessageCode.UserIsNotFound, "Kullanıcı bulunamadı");
+            }
+            return res;
 
         }
     }
