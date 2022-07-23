@@ -169,11 +169,36 @@ namespace BlogProject.WEBUI.Controllers
 
         public ActionResult EditProfile()
         {
-            return View();
+            User currentUser = Session["login"] as User;
+
+            BusinessLayerResult<User> res = um.GetUserById(currentUser.Id);
+
+            if (res.Errors.Count > 0)
+            {
+                ErrorViewModel errorNotiftyObj = new ErrorViewModel()
+                {
+                    Title = "Hata Oluştu",
+                    Items = res.Errors
+                };
+
+                return View("Error", errorNotiftyObj);
+            }
+
+            return View(res.Result);
         }
         [HttpPost]
-        public ActionResult EditProfile(User user)
+        public ActionResult EditProfile(User model,HttpPostedFileBase ProfileImage)
         {
+            if(ProfileImage != null &&
+                (ProfileImage.ContentType == "image/png" ||
+                ProfileImage.ContentType == "image/jpg" ||
+                ProfileImage.ContentType == "image/jpeg"))
+            {
+                string fileName = $"user_{model.Id}.{ProfileImage.ContentType.Split('/')[1]}";
+
+                ProfileImage.SaveAs(Server.MapPath($"~/Content/img/{fileName}"));
+                model.ProfileImageFileName = fileName;
+            }
             return View();
         }
 
