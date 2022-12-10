@@ -22,7 +22,7 @@ body {
 }
 
 .caption {
-    height: 130px;
+    height: 155px;
     overflow: hidden;
 }
 
@@ -34,11 +34,22 @@ body {
     width: 100%;
 }
 
+.thumbnail{
+    height:340px;
+}
+
 .ratings {
     padding-right: 10px;
     padding-left: 10px;
     color: #d17581;
 }
+.ratings button{
+    color:#d17581;
+}
+
+    .ratings button:hover {
+        color: #ac5460;
+    }
 
 .thumbnail {
     padding: 0;
@@ -51,4 +62,9 @@ body {
 
 footer {
     margin: 50px 0;
+}
+
+hr{
+    margin-top:10px;
+    margin-bottom:10px;
 }

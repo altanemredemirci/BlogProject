@@ -16,13 +16,7 @@
 
     <!-- Custom CSS -->
     <link href="~/Content/css/shop-homepage.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    
 
 </head>
 
@@ -45,13 +39,46 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-wrench"></span> Yönetim
+                        </a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-star"></span> En Beğenilenler
+                        </a>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-th-list"></span> Son Yazılanlar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-info-sign"></span> Hakkımızda
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-log-in"></span> Giriş
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Üye Ol
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> altanemre
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-log-out"></span> Çıkış
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -61,7 +88,7 @@
     </nav>
 
     <!-- Page Content -->
-  @RenderBody()
+    @RenderBody()
     <!-- /.container -->
 
     <div class="container">
@@ -71,8 +98,45 @@
         <!-- Footer -->
         <footer>
             <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                <div class="col-lg-4 text-center">
+                   <h5>
+                       <strong>Site Haritası</strong>
+                   </h5>
+                    <hr />
+                    <p>
+                        <a href="#">Hakkımızda</a><br />
+                        <a href="#">En Beğenilenler</a><br />
+                        <a href="#">Son Yazılar</a><br />
+                    </p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <h5>
+                        <strong>Blog Project</strong>
+                    </h5>
+                    <hr />
+                    <p>
+                        Tüm hakları saklıdır &copy;<br />
+                        Blog Project @DateTime.Now.Year
+                    </p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <h5>
+                        <strong>E-Bülten Üyeliği</strong>
+                    </h5>
+                    <hr />
+                   <div class="col-md-10 col-lg-offset-1">
+                       <p>
+                           Consectetur adipiscing elit fusce vel.
+                       </p>
+                       <div class="input-group">
+                           <input type="text" class="form-control" placeholder="e-mail adresiniz" />
+                           <span class="input-group-btn">
+                               <button class="btn btn-primary" type="submit">
+                                   <span class="glyphicon glyphicon-send"></span> Gönder
+                               </button>
+                           </span>
+                       </div>
+                   </div> 
                 </div>
             </div>
         </footer>
