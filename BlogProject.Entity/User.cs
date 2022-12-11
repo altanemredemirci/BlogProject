@@ -14,6 +14,11 @@ namespace BlogProject.Entity
         public string Password { get; set; }
         public bool IsActive { get; set; }
         public bool IsAdmin { get; set; }
-        public Guid ActivateGuid { get; set; }      
+        public Guid ActivateGuid { get; set; }
+
+        public List<Blog> Blogs { get; set; }
+        public List<Comment> Comments { get; set; }
+        public List<Liked> Likes { get; set; }
+
     }
 }

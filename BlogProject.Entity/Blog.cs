@@ -22,5 +22,6 @@ namespace BlogProject.Entity
         public User Owner { get; set; }
 
         public List<Comment> Comments { get; set; }
+        public List<Liked> Likes { get; set; }
     }
 }

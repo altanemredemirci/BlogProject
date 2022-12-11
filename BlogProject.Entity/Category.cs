@@ -9,6 +9,8 @@ namespace BlogProject.Entity
     internal class Category:BaseEntity
     {       
         public string Title { get; set; }
-        public string Description { get; set; }      
+        public string Description { get; set; }
+
+        public virtual List<Blog> Blogs { get; set; }
     }
 }

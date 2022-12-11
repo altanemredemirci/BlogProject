@@ -128,6 +128,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlogProject.BLL\BlogProject.BLL.csproj">
+      <Project>{f47b60e8-990a-43f5-a6c1-92b38e3c182c}</Project>
+      <Name>BlogProject.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlogProject.Entity\BlogProject.Entity.csproj">
+      <Project>{247ec447-57be-4329-812f-679d73590f27}</Project>
+      <Name>BlogProject.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
