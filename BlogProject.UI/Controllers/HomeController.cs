@@ -11,6 +11,7 @@ namespace BlogProject.UI.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            BLL.Test test = new BLL.Test();
             return View();
         }
     }

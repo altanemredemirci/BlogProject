@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlogProject.Entity
 {
-    internal class Comment:BaseEntity
+    public class Comment:BaseEntity
     {
         public string Text { get; set; }
 
