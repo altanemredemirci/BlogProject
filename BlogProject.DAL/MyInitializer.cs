@@ -133,11 +133,8 @@ namespace BlogProject.DAL
                         blog.Likes.Add(like);
                     }
                 }
-
             }
-
             context.SaveChanges();
-
         }
     }
 }
