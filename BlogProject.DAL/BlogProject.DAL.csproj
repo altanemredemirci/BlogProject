@@ -54,8 +54,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="DatabaseContext.cs" />
+    <Compile Include="EF\Repository.cs" />
+    <Compile Include="EF\RepositoryBase.cs" />
     <Compile Include="MyInitializer.cs" />
+    <Compile Include="MySql\Repository.cs" />
+    <Compile Include="MySql\RepositoryBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogProject.BLL
+namespace BlogProject.DAL.EF
 {
-    internal class RepositoryBase
+    public class RepositoryBase
     {
-        private static DatabaseContext _db; // Static bir yapı(static CreateContext) içerisinde kullandığım için tanım static olmak zorunda.
+        protected static DatabaseContext _db; // Static bir yapı(static CreateContext) içerisinde kullandığım için tanım static olmak zorunda.
         private static object _lockSync = new object();
 
 
         protected RepositoryBase()
         {
-
+            CreateContext();
         }
 
         public static DatabaseContext CreateContext()

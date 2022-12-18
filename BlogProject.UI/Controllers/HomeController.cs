@@ -13,11 +13,14 @@ namespace BlogProject.UI.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            BlogProject.BLL.Test test = new Test();
-            //test.InsertTest();
-            //test.UpdateTest();
-            test.CommentTest();
-            return View();
+            if (TempData["blogs"] != null)
+            {
+                return View(TempData["blogs"] as List<Blog>);
+            }
+            
+            BlogManager bm = new BlogManager();
+            List<Blog> model = bm.GetAllBlog();
+            return View(model);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿
+﻿@*@model List<BlogProject.Entity.Blog>*@
+
+@using BlogProject.Entity
+@model List<Blog>
 @{
     ViewBag.Title = "Index";
 }
@@ -8,13 +11,7 @@
     <div class="row">
         <!--Kategoriler-->
         <div class="col-md-3">
-            <p class="lead">Kategoriler</p>
-            <div class="list-group">
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span> Tümü</a>
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span> Category 1</a>
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span> Category 2</a>
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span> Category 3</a>
-            </div>
+            @Html.Partial("_PartialCategories")
         </div>
 
         <div class="col-md-9">
@@ -51,208 +48,58 @@
             </div>
 
             <div class="row">
+                @foreach (Blog blog in Model)
+                {
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="~/Content/img/320x150.png" alt="">
+                            <div class="caption">
+                                <h4>
+                                    <a href="#">
+                                        @blog.Title
+                                    </a>
+                                </h4>
+                                <h6 class="text-right">
+                                    @blog.Owner.Username <span class="glyphicon glyphicon-user"></span>  <br />
+                                    @blog.ModifiedOn.ToString("dd.MM.yy HH:mm")  <span class="glyphicon glyphicon-time"></span> <br />
+                                </h6>
+                               
+                                    @if (!string.IsNullOrEmpty(blog.Text) && blog.Text.Length > 60)
+                                    {
+                                        <p>@(blog.Text.Substring(0, 60)+"...")</p>
+                                        <p class="pull-right"><a href="#" class="btn btn-default btn-sm">devamı<span class="glyphicon glyphicon-chevron-right"></span> </a></p>
+                                        
+                                    }
+                                    else
+                                    {
+                            <p> @blog.Text</p>
+                                    }
 
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="~/Content/img/320x150.png" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">
-                                    Sit amet, consectetur.
-                                </a>
-                            </h4>
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-user"></span> altanemre <br />
-                                <span class="glyphicon glyphicon-time"></span> 01.01.2022 13:34 <br />
-                            </h6>
-                            <p>
-                                In malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl.
-                            </p>
+                                   
+                                </div>
+                                <div><hr /></div>
+                                <div class="ratings">
+                                    <p class="pull-right">
+                                        <button class="btn btn-default btn-sm">
+                                            <span class="glyphicon glyphicon-comment"></span> Yorumlar
+                                        </button>
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-default btn-sm" type="button">
+                                            <span class="glyphicon glyphicon-star-empty"></span> @blog.LikeCount
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div><hr /></div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
+                    }
+
+
+                                </div>
+
+                            </div>
+
                         </div>
+
                     </div>
-                </div>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="~/Content/img/320x150.png" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">
-                                    Sit amet, consectetur.
-                                </a>
-                            </h4>
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-user"></span> altanemre <br />
-                                <span class="glyphicon glyphicon-time"></span> 01.01.2022 13:34 <br />
-                            </h6>
-                            <p>
-                                In malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl.
-                            </p>
-                        </div>
-                        <div><hr /></div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="~/Content/img/320x150.png" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">
-                                    Sit amet, consectetur.
-                                </a>
-                            </h4>
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-user"></span> altanemre <br />
-                                <span class="glyphicon glyphicon-time"></span> 01.01.2022 13:34 <br />
-                            </h6>
-                            <p>
-                                In malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl.
-                            </p>
-                        </div>
-                        <div><hr /></div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="~/Content/img/320x150.png" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">
-                                    Sit amet, consectetur.
-                                </a>
-                            </h4>
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-user"></span> altanemre <br />
-                                <span class="glyphicon glyphicon-time"></span> 01.01.2022 13:34 <br />
-                            </h6>
-                            <p>
-                                In malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl.
-                            </p>
-                        </div>
-                        <div><hr /></div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="~/Content/img/320x150.png" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">
-                                    Sit amet, consectetur.
-                                </a>
-                            </h4>
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-user"></span> altanemre <br />
-                                <span class="glyphicon glyphicon-time"></span> 01.01.2022 13:34 <br />
-                            </h6>
-                            <p>
-                                In malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl.
-                            </p>
-                        </div>
-                        <div><hr /></div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="~/Content/img/320x150.png" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">
-                                    Sit amet, consectetur.
-                                </a>
-                            </h4>
-                            <h6>
-                                <span class="glyphicon glyphicon-user"></span> altanemre <br />
-                                <span class="glyphicon glyphicon-time"></span> 01.01.2022 13:34 <br />
-                            </h6>
-                            <p>
-                                In malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl.
-                            </p>
-                        </div>
-                        <div><hr /></div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
 
