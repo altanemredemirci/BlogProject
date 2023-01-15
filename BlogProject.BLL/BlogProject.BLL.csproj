@@ -55,7 +55,6 @@
     <Compile Include="BusinessLayerResult.cs" />
     <Compile Include="CategoryManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test.cs" />
     <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
