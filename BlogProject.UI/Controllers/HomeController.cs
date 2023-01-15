@@ -20,7 +20,7 @@ namespace BlogProject.UI.Controllers
         private UserManager um = new UserManager();
         // GET: Home
         public ActionResult Index()
-        {           
+        {      //Queryable      
             return View(bm.GetAllBlogQueryable().OrderByDescending(i => i.ModifiedOn).ToList());
         }
 
