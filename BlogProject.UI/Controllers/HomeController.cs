@@ -20,13 +20,7 @@ namespace BlogProject.UI.Controllers
         private UserManager um = new UserManager();
         // GET: Home
         public ActionResult Index()
-        {
-            //if (TempData["blogs"] != null)
-            //{
-            //    return View(TempData["blogs"] as List<Blog>);
-            //}
-
-            //return View(bm.GetAllBlog().OrderByDescending(i => i.ModifiedOn).ToList());
+        {           
             return View(bm.GetAllBlogQueryable().OrderByDescending(i => i.ModifiedOn).ToList());
         }
 
