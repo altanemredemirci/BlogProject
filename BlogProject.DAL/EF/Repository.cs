@@ -1,4 +1,5 @@
-﻿using BlogProject.DAL;
+﻿using BlogProject.Common;
+using BlogProject.DAL;
 using BlogProject.DAL.Abstract;
 using BlogProject.Entity;
 using System;
@@ -46,13 +47,28 @@ namespace BlogProject.DAL.EF
         public int Insert(T obj)
         {
             _objectSet.Add(obj);
+
+            if(obj is BaseEntity)
+            {
+                BaseEntity o = obj as BaseEntity;
+                o.CreateOn = DateTime.Now;
+                o.ModifiedOn = DateTime.Now;
+                o.ModifiedUsername = App.Common.GetUsername(); 
+            }
+
             return _db.SaveChanges();
         }
 
 
         public int Update(T obj)
         {
-           return _db.SaveChanges();
+            if (obj is BaseEntity)
+            {
+                BaseEntity o = obj as BaseEntity;               
+                o.ModifiedOn = DateTime.Now;
+                o.ModifiedUsername = App.Common.GetUsername();
+            }
+            return _db.SaveChanges();
         }
 
         public int Delete(T obj)

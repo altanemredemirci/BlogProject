@@ -23,7 +23,9 @@ namespace BlogProject.Entity
 
         [StringLength(25), Required, DataType(DataType.Password)]
         public string Password { get; set; }
-
+        
+        [StringLength(30)] //user12.png
+        public string ProfileImageFilename { get; set; }
         public bool IsActive { get; set; }
         public bool IsAdmin { get; set; }
         public Guid ActivateGuid { get; set; }

@@ -34,6 +34,11 @@ namespace BlogProject.DAL.MySql
             throw new NotImplementedException();
         }
 
+        public IQueryable<T> ListQueryable()
+        {
+            throw new NotImplementedException();
+        }
+
         public int Update(T obj)
         {
             throw new NotImplementedException();

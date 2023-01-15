@@ -11,6 +11,8 @@ namespace BlogProject.DAL.Abstract
     {
         List<T> List();
         List<T> List(Expression<Func<T, bool>> where);
+
+        IQueryable<T> ListQueryable();
         T Find(Expression<Func<T, bool>> where);
         int Insert(T obj);
         int Update(T obj);

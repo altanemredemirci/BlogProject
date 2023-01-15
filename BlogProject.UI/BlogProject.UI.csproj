@@ -100,9 +100,11 @@
     <Content Include="Content\css\shop-homepage.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\800x300.png" />
+    <Content Include="Content\img\user.jpg" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\jquery.js" />
+    <Content Include="Content\login-register.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -113,7 +115,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Init\WebCommon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ErrorViewModel.cs" />
+    <Compile Include="ViewModels\InfoViewModel.cs" />
+    <Compile Include="ViewModels\NotifyViewModelBase.cs" />
+    <Compile Include="ViewModels\OkViewModel.cs" />
+    <Compile Include="ViewModels\WarningViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -126,6 +134,15 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_PartialCategories.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\ShowProfile.cshtml" />
+    <Content Include="Views\Home\EditProfile.cshtml" />
+    <Content Include="Views\Shared\Ok.cshtml" />
+    <Content Include="Views\Shared\Warning.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -142,6 +159,10 @@
     <ProjectReference Include="..\BlogProject.BLL\BlogProject.BLL.csproj">
       <Project>{f47b60e8-990a-43f5-a6c1-92b38e3c182c}</Project>
       <Name>BlogProject.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlogProject.Common\BlogProject.Common.csproj">
+      <Project>{9423595e-2844-4609-8ad8-f58bf349b94d}</Project>
+      <Name>BlogProject.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlogProject.Entity\BlogProject.Entity.csproj">
       <Project>{247ec447-57be-4329-812f-679d73590f27}</Project>

@@ -13,12 +13,13 @@ namespace BlogProject.BLL
     {
         private Repository<Blog> repo_blog = new Repository<Blog>();
         public List<Blog> GetAllBlog()
+        {           
+            return repo_blog.List();            
+        }
+        public IQueryable<Blog> GetAllBlogQueryable()
         {
             var blogs = repo_blog.ListQueryable(); // blogs => db.Blogs.AsQueryable().Include("Owner").To
-            return blogs.Include("Owner").ToList();
-            
+            return blogs.Include("Owner");
         }
-
-        
     }
 }

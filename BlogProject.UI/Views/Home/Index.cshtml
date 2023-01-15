@@ -63,43 +63,43 @@
                                     @blog.Owner.Username <span class="glyphicon glyphicon-user"></span>  <br />
                                     @blog.ModifiedOn.ToString("dd.MM.yy HH:mm")  <span class="glyphicon glyphicon-time"></span> <br />
                                 </h6>
-                               
-                                    @if (!string.IsNullOrEmpty(blog.Text) && blog.Text.Length > 60)
-                                    {
-                                        <p>@(blog.Text.Substring(0, 60)+"...")</p>
-                                        <p class="pull-right"><a href="#" class="btn btn-default btn-sm">devamı<span class="glyphicon glyphicon-chevron-right"></span> </a></p>
-                                        
-                                    }
-                                    else
-                                    {
-                            <p> @blog.Text</p>
-                                    }
 
-                                   
-                                </div>
-                                <div><hr /></div>
-                                <div class="ratings">
-                                    <p class="pull-right">
-                                        <button class="btn btn-default btn-sm">
-                                            <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                        </button>
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-default btn-sm" type="button">
-                                            <span class="glyphicon glyphicon-star-empty"></span> @blog.LikeCount
-                                        </button>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    }
+                                @if (!string.IsNullOrEmpty(blog.Text) && blog.Text.Length > 60)
+                                {
+                                    <p>@(blog.Text.Substring(0, 60)+"...")</p>
+                                    <p class="pull-right"><a href="#" class="btn btn-default btn-sm">devamı<span class="glyphicon glyphicon-chevron-right"></span> </a></p>
 
+                                }
+                                else
+                                {
+                                    <p> @blog.Text</p>
+                                }
 
-                                </div>
 
                             </div>
-
+                            <div><hr /></div>
+                            <div class="ratings">
+                                <p class="pull-right">
+                                    <button class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-comment"></span> Yorumlar
+                                    </button>
+                                </p>
+                                <p>
+                                    <button class="btn btn-default btn-sm" type="button">
+                                        <span class="glyphicon glyphicon-star-empty"></span> @blog.LikeCount
+                                    </button>
+                                </p>
+                            </div>
                         </div>
-
                     </div>
+                }
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 

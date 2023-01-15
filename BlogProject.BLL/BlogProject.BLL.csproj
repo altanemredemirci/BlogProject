@@ -52,11 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlogManager.cs" />
+    <Compile Include="BusinessLayerResult.cs" />
     <Compile Include="CategoryManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test.cs" />
+    <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlogProject.Common\BlogProject.Common.csproj">
+      <Project>{9423595e-2844-4609-8ad8-f58bf349b94d}</Project>
+      <Name>BlogProject.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlogProject.DAL\BlogProject.DAL.csproj">
       <Project>{c638ce46-0fb6-47b0-866f-1a4a0de532fd}</Project>
       <Name>BlogProject.DAL</Name>

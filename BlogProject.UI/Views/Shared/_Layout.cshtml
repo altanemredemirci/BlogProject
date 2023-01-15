@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using BlogProject.Entity
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,12 +18,19 @@
 
     <!-- Custom CSS -->
     <link href="~/Content/css/shop-homepage.css" rel="stylesheet">
-    
+    <!-- jQuery -->
+    <script src="~/Content/js/jquery.js"></script>
 
 </head>
 
 <body>
-
+    @{ 
+        User user = null;
+        if (Session["login"] != null)
+        {
+            user = Session["login"] as User;
+        }
+    }
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -33,53 +42,66 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="/Home/Index">Start Bootstrap</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+                    @if (user != null && user.IsAdmin)
+                    {
+                        <li>
+                            <a href="/Home">
+                                <span class="glyphicon glyphicon-wrench"></span> Yönetim
+                            </a>
+                        </li>
+                    }
+
                     <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-wrench"></span> Yönetim
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
+                        <a href="/Home/MostLiked">
                             <span class="glyphicon glyphicon-star"></span> En Beğenilenler
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/Home/Index">
                             <span class="glyphicon glyphicon-th-list"></span> Son Yazılanlar
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/Home/About">
                             <span class="glyphicon glyphicon-info-sign"></span> Hakkımızda
                         </a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-log-in"></span> Giriş
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-user"></span> Üye Ol
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-user"></span> altanemre
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-log-out"></span> Çıkış
-                        </a>
-                    </li>
+                    @if (user == null)
+                    {
+
+
+                        <li>
+                            <a href="/home/login">
+                                <span class="glyphicon glyphicon-log-in"></span> Giriş
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/home/Register">
+                                <span class="glyphicon glyphicon-user"></span> Üye Ol
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="/Home/ShowProfile">
+                                <span class="glyphicon glyphicon-user"></span> @user.Username
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/home/Logout">
+                                <span class="glyphicon glyphicon-log-out"></span> Çıkış
+                            </a>
+                        </li>
+                    }
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -143,8 +165,7 @@
 
     </div>
     <!-- /.container -->
-    <!-- jQuery -->
-    <script src="~/Content/js/jquery.js"></script>
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="~/Content/js/bootstrap.min.js"></script>

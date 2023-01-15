@@ -64,6 +64,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlogProject.Common\BlogProject.Common.csproj">
+      <Project>{9423595e-2844-4609-8ad8-f58bf349b94d}</Project>
+      <Name>BlogProject.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlogProject.Entity\BlogProject.Entity.csproj">
       <Project>{247ec447-57be-4329-812f-679d73590f27}</Project>
       <Name>BlogProject.Entity</Name>

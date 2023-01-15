@@ -23,6 +23,7 @@ namespace BlogProject.DAL
                 IsAdmin=true,
                 Username="altanemre",
                 Password="123456",
+                ProfileImageFilename="user.jpg",
                 CreateOn=DateTime.Now,
                 ModifiedOn=DateTime.Now.AddMinutes(5),
                 ModifiedUsername="altanemre"
@@ -39,6 +40,7 @@ namespace BlogProject.DAL
                 IsAdmin = false,
                 Username = "kivanc",
                 Password = "1",
+                ProfileImageFilename = "user.jpg",
                 CreateOn = DateTime.Now,
                 ModifiedOn = DateTime.Now.AddMinutes(5),
                 ModifiedUsername = "altanemre"
@@ -59,6 +61,7 @@ namespace BlogProject.DAL
                     IsAdmin = false,
                     Username = $"user{i}",
                     Password = "1",
+                    ProfileImageFilename = $"user{i}.jpg",
                     CreateOn = FakeData.DateTimeData.GetDatetime(DateTime.Now.AddYears(-1),DateTime.Now),
                     ModifiedOn = FakeData.DateTimeData.GetDatetime(DateTime.Now.AddYears(-1), DateTime.Now),
                     ModifiedUsername = $"user{i}"
