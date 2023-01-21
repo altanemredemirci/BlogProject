@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    @{ 
+    @{
         User user = null;
         if (Session["login"] != null)
         {
@@ -47,12 +47,45 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    @if (user != null && user.IsAdmin)
+                    @if (user != null)
                     {
-                        <li>
-                            <a href="/Home">
-                                <span class="glyphicon glyphicon-wrench"></span> Yönetim
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-wrench"></span> Yönetim <span class="caret"></span>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/Note/Create">
+                                        <span class="glyphicon glyphicon-plus"></span> Blog Ekle
+                                    </a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a href="/Note/Index">
+                                        <span class="glyphicon glyphicon-th-list"></span> Bloglarım
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Note/MyLikeBlogs">
+                                        <span class="glyphicon glyphicon-heart"></span> Beğendiklerim
+                                    </a>
+                                </li>
+                                @if (user.IsAdmin)
+                                {
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="/Category/Create">
+                                            <span class="glyphicon glyphicon-plus"></span> Kategori Ekle
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/Category/Index">
+                                            <span class="glyphicon glyphicon-th-list"></span> Kategoriler
+                                        </a>
+                                    </li>
+
+                                }
+                            </ul>
                         </li>
                     }
 
@@ -90,10 +123,20 @@
                     }
                     else
                     {
-                        <li>
-                            <a href="/Home/ShowProfile">
-                                <span class="glyphicon glyphicon-user"></span> @user.Username
+                        <li class="dropdown">
+                            <a href="/Home/ShowProfile" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                <span class="glyphicon glyphicon-user"></span> @user.Username <span class="caret"></span>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/Home/ShowProfile">
+                                        <span class="glyphicon glyphicon-user">&nbsp;</span> Profili Göster
+                                    </a>
+                                </li>
+                                <li><a href="@Url.Action("EditProfile")"><span class="glyphicon glyphicon-edit">&nbsp;</span> Profili Düzenle</a></li>
+                                <li><a href="@Url.Action("DeleteProfile")" onclick="return confirm('Silmek istediğinize emin misiniz?');"><span class="glyphicon glyphicon-trash">&nbsp;</span> Profili Sil</a></li>
+                            </ul>
+
                         </li>
                         <li>
                             <a href="/home/Logout">
@@ -111,8 +154,8 @@
 
     <!-- Page Content -->
     @RenderBody()
-    <!-- /.container -->
 
+    <!-- /.container -->
     <div class="container">
 
         <hr>
@@ -121,9 +164,9 @@
         <footer>
             <div class="row">
                 <div class="col-lg-4 text-center">
-                   <h5>
-                       <strong>Site Haritası</strong>
-                   </h5>
+                    <h5>
+                        <strong>Site Haritası</strong>
+                    </h5>
                     <hr />
                     <p>
                         <a href="#">Hakkımızda</a><br />
@@ -146,27 +189,25 @@
                         <strong>E-Bülten Üyeliği</strong>
                     </h5>
                     <hr />
-                   <div class="col-md-10 col-lg-offset-1">
-                       <p>
-                           Consectetur adipiscing elit fusce vel.
-                       </p>
-                       <div class="input-group">
-                           <input type="text" class="form-control" placeholder="e-mail adresiniz" />
-                           <span class="input-group-btn">
-                               <button class="btn btn-primary" type="submit">
-                                   <span class="glyphicon glyphicon-send"></span> Gönder
-                               </button>
-                           </span>
-                       </div>
-                   </div> 
+                    <div class="col-md-10 col-lg-offset-1">
+                        <p>
+                            Consectetur adipiscing elit fusce vel.
+                        </p>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="e-mail adresiniz" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit">
+                                    <span class="glyphicon glyphicon-send"></span> Gönder
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>
 
     </div>
     <!-- /.container -->
-
-
     <!-- Bootstrap Core JavaScript -->
     <script src="~/Content/js/bootstrap.min.js"></script>
 

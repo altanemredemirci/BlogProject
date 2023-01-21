@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using BlogProject.Entity.Messages;
 using BlogProject.Common.Helpers;
+using BlogProject.BLL.Results;
+using BlogProject.BLL.Abstract;
 
 namespace BlogProject.BLL
 {
-    public class UserManager
+    public class UserManager:ManagerBase<User>
     {
-        private Repository<User> repo_user = new Repository<User>();
+       
         public BusinessLayerResult<User> RegisterUser(RegisterViewModel model)
         {
             // Kullanıcı username kontrolü..
@@ -30,7 +32,7 @@ namespace BlogProject.BLL
                 return res;
             }
 
-            User user = repo_user.Find(i => i.Username == model.Username || i.Email == model.Email);
+            User user = Find(i => i.Username == model.Username || i.Email == model.Email);
            
 
             if (user != null)
@@ -48,7 +50,7 @@ namespace BlogProject.BLL
             {   
                 // TODO : aktivasyon mail'ı atılacak
                 // res.Result.ActivateGuid
-                int dbResult = repo_user.Insert(new User()
+                int dbResult = Insert(new User()
                 {
                     Username = model.Username,
                     Email = model.Email,
@@ -60,7 +62,7 @@ namespace BlogProject.BLL
 
                 if (dbResult > 0)
                 {
-                    res.Result = repo_user.Find(i => i.Email == model.Email && i.Username == model.Username);
+                    res.Result = Find(i => i.Email == model.Email && i.Username == model.Username);
 
                     string siteUrl = ConfigHelper.Get<string>("SiteUrl");
                     string activateUrl = $"{siteUrl}/Home/UserActivate/{res.Result.ActivateGuid}";
@@ -77,7 +79,7 @@ namespace BlogProject.BLL
             // Session'a kullanıcı bilgi saklama..
 
             BusinessLayerResult<User> res = new BusinessLayerResult<User>();
-            res.Result = repo_user.Find(x => x.Username == model.Username && x.Password == model.Password);
+            res.Result = Find(x => x.Username == model.Username && x.Password == model.Password);
 
             if (res.Result != null)
             {
@@ -98,7 +100,7 @@ namespace BlogProject.BLL
         public BusinessLayerResult<User> ActivateUser(Guid id)
         {
             BusinessLayerResult<User> res = new BusinessLayerResult<User>();
-            res.Result = repo_user.Find(x => x.ActivateGuid == id);
+            res.Result = Find(x => x.ActivateGuid == id);
 
             if (res.Result != null)
             {
@@ -109,7 +111,7 @@ namespace BlogProject.BLL
                 }
 
                 res.Result.IsActive = true;
-                repo_user.Update(res.Result);
+                Update(res.Result);
             }
 
             else
@@ -225,11 +227,11 @@ namespace BlogProject.BLL
            
         }
 
-        public BusinessLayerResult<User> GeUserById(int id)
+        public BusinessLayerResult<User> GetUserById(int id)
         {
             BusinessLayerResult<User> res = new BusinessLayerResult<User>();
 
-            res.Result = repo_user.Find(x => x.Id == id);
+            res.Result = Find(x => x.Id == id);
 
             if(res.Result == null)
             {
@@ -241,7 +243,7 @@ namespace BlogProject.BLL
 
         public BusinessLayerResult<User> UpdateProfile(User model)
         {
-            User db_user = repo_user.Find(x => x.Id != model.Id && (x.Username == model.Username || x.Email == model.Email));
+            User db_user = Find(x => x.Id != model.Id && (x.Username == model.Username || x.Email == model.Email));
 
             BusinessLayerResult<User> res = new BusinessLayerResult<User>();
 
@@ -258,7 +260,7 @@ namespace BlogProject.BLL
                 return res;
             }
 
-            res.Result = repo_user.Find(x => x.Id == model.Id);
+            res.Result = Find(x => x.Id == model.Id);
             res.Result.Email = model.Email;
             res.Result.Username = model.Username;
             res.Result.Name = model.Name;
@@ -270,11 +272,34 @@ namespace BlogProject.BLL
                 res.Result.ProfileImageFilename = model.ProfileImageFilename;
             }
 
-            if(repo_user.Update(res.Result) == 0)
+            if(Update(res.Result) == 0)
             {
                 res.AddError(ErrorMessageCode.ProfileCouldNotUpdated, "Profil Güncellenemedi");
             }
             return res;
         }
+
+        public BusinessLayerResult<User> RemoveUserById(int id)
+        {
+            BusinessLayerResult<User> res = new BusinessLayerResult<User>();
+            User user = Find(x => x.Id == id);
+
+            if(user != null)
+            {
+                if (Delete(user) == 0)
+                {
+                    res.AddError(ErrorMessageCode.UserCouldNotRemove, "Kullanıcı silinemedi");
+                    return res;
+                }
+            }
+            else
+            {
+                res.AddError(ErrorMessageCode.UserCouldNotFind, "Kullanıcı bulunamadı.");
+            }
+
+            return res;
+        }
+
+
     }
 }

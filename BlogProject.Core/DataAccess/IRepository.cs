@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogProject.DAL.Abstract
+namespace BlogProject.Core.DataAccess
 {
-    internal interface IRepository<T>
+    public interface IRepository<T>
     {
         List<T> List();
         List<T> List(Expression<Func<T, bool>> where);

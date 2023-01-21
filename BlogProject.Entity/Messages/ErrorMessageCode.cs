@@ -12,6 +12,8 @@ namespace BlogProject.Entity.Messages
         UserAlreadyActive = 155,
         ActivateIdDoesNotExists = 156,
         UserNotFound = 157,
-        ProfileCouldNotUpdated = 158
+        ProfileCouldNotUpdated = 158,
+        UserCouldNotRemove = 159,
+        UserCouldNotFind = 160
     }
 }

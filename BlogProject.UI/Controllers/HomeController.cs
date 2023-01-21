@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using BlogProject.Entity.Messages;
 using BlogProject.UI.ViewModels;
+using BlogProject.BLL.Results;
 
 namespace BlogProject.UI.Controllers
 {
@@ -22,7 +23,7 @@ namespace BlogProject.UI.Controllers
         public ActionResult Index()
         {     
             
-            return View(bm.GetAllBlogQueryable().OrderByDescending(i => i.ModifiedOn).ToList());
+            return View(bm.ListQueryable().OrderByDescending(i => i.ModifiedOn).ToList());
         }
 
         public ActionResult ByCategory(int? id)
@@ -32,7 +33,7 @@ namespace BlogProject.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
                        
-            Category cat = cm.GetCategoryById(id.Value);
+            Category cat = cm.Find(x=> x.Id==id.Value);
 
             if (cat == null)
             {
@@ -44,7 +45,7 @@ namespace BlogProject.UI.Controllers
 
         public ActionResult MostLiked()
         {
-            return View("Index",bm.GetAllBlogQueryable().OrderByDescending(i => i.LikeCount).ToList());
+            return View("Index",bm.ListQueryable().OrderByDescending(i => i.LikeCount).ToList());
         }
 
         public ActionResult About()
@@ -177,7 +178,7 @@ namespace BlogProject.UI.Controllers
             }
             User currentUser = Session["login"] as User;
 
-            //BusinessLayerResult<User> res = um.GeUserById(currentUser.Id);
+            //BusinessLayerResult<User> res = um.GetUserById(currentUser.Id);
 
             //if (res.Errors.Count > 0)
             //{
@@ -237,7 +238,23 @@ namespace BlogProject.UI.Controllers
 
         public ActionResult DeleteProfile()
         {
-            return View();
+            User currentUser = Session["login"] as User;
+            BusinessLayerResult<User> res = um.RemoveUserById(currentUser.Id);
+
+            if (res.Errors.Count > 0)
+            {
+                ErrorViewModel errorNotifyObj = new ErrorViewModel()
+                {
+                    Items = res.Errors,
+                    Title = "Profiliniz Güncellenemedi",
+                    RedirectingUrl = "/Home/ShowProfile"
+                };
+
+                return View("Error", errorNotifyObj);
+            }
+
+            Session.Clear();
+            return RedirectToAction("Index");
         }
     }
 }

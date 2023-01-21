@@ -1,4 +1,4 @@
-﻿using BlogProject.DAL.Abstract;
+﻿using BlogProject.Core.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;

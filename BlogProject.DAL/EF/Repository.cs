@@ -1,6 +1,6 @@
 ﻿using BlogProject.Common;
 using BlogProject.DAL;
-using BlogProject.DAL.Abstract;
+using BlogProject.Core.DataAccess;
 using BlogProject.Entity;
 using System;
 using System.Collections.Generic;
@@ -75,8 +75,6 @@ namespace BlogProject.DAL.EF
         {
             _objectSet.Remove(obj);
             return _db.SaveChanges();
-        }
-
-       
+        }       
     }
 }
