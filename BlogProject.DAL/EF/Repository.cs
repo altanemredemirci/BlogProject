@@ -1,6 +1,6 @@
 ﻿using BlogProject.Common;
-using BlogProject.DAL;
 using BlogProject.Core.DataAccess;
+using BlogProject.DAL;
 using BlogProject.Entity;
 using System;
 using System.Collections.Generic;
@@ -30,30 +30,30 @@ namespace BlogProject.DAL.EF
 
         public List<T> List()
         {
-            return _objectSet.ToList(); 
+            return _objectSet.ToList();
         }
 
-        public List<T> List(Expression<Func<T,bool>> where) // List(i=> i.Id==id)
+        public List<T> List(Expression<Func<T, bool>> where) // List(i=> i.Id==id)
         {
             return _objectSet.Where(where).ToList(); //   Set<T> ->  DbSet<Category> Categories -> db.Categories.ToList();
             //db.Products.Where(i=> i.CategoryId==catId).ToList()
         }
 
-        public T Find(Expression<Func<T, bool>> where) 
+        public T Find(Expression<Func<T, bool>> where)
         {
-            return _objectSet.FirstOrDefault(where);             
+            return _objectSet.FirstOrDefault(where);
         }
 
         public int Insert(T obj)
         {
             _objectSet.Add(obj);
 
-            if(obj is BaseEntity)
+            if (obj is BaseEntity)
             {
                 BaseEntity o = obj as BaseEntity;
                 o.CreateOn = DateTime.Now;
                 o.ModifiedOn = DateTime.Now;
-                o.ModifiedUsername = App.Common.GetUsername(); 
+                o.ModifiedUsername = App.Common.GetUsername();
             }
 
             return _db.SaveChanges();
@@ -64,17 +64,18 @@ namespace BlogProject.DAL.EF
         {
             if (obj is BaseEntity)
             {
-                BaseEntity o = obj as BaseEntity;               
+                BaseEntity o = obj as BaseEntity;
                 o.ModifiedOn = DateTime.Now;
                 o.ModifiedUsername = App.Common.GetUsername();
             }
-            return _db.SaveChanges();
+            int s = _db.SaveChanges();
+            return s;
         }
 
         public int Delete(T obj)
         {
             _objectSet.Remove(obj);
             return _db.SaveChanges();
-        }       
+        }
     }
 }

@@ -48,6 +48,9 @@ namespace BlogProject.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Category category)
         {
+            ModelState.Remove("CreateOn");
+            ModelState.Remove("ModifiedOn");
+            ModelState.Remove("ModifiedUsername");
             if (ModelState.IsValid)
             {
                 cm.Insert(category);
@@ -77,6 +80,9 @@ namespace BlogProject.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Category category)
         {
+            ModelState.Remove("CreateOn");
+            ModelState.Remove("ModifiedOn");
+            ModelState.Remove("ModifiedUsername");
             if (ModelState.IsValid)
             {
                 cm.Update(category);

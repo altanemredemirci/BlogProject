@@ -21,9 +21,8 @@ namespace BlogProject.UI.Controllers
         private UserManager um = new UserManager();
         // GET: Home
         public ActionResult Index()
-        {     
-            
-            return View(bm.ListQueryable().OrderByDescending(i => i.ModifiedOn).ToList());
+        {               
+            return View(bm.ListQueryable().Include("Owner").OrderByDescending(i => i.ModifiedOn).ToList());
         }
 
         public ActionResult ByCategory(int? id)

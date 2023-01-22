@@ -153,63 +153,64 @@
     </nav>
 
     <!-- Page Content -->
-    @RenderBody()
-
-    <!-- /.container -->
     <div class="container">
+        @RenderBody()
+        </div>
+        <!-- /.container -->
+        <div class="container">
 
-        <hr>
+            <hr>
 
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-4 text-center">
-                    <h5>
-                        <strong>Site Haritası</strong>
-                    </h5>
-                    <hr />
-                    <p>
-                        <a href="#">Hakkımızda</a><br />
-                        <a href="#">En Beğenilenler</a><br />
-                        <a href="#">Son Yazılar</a><br />
-                    </p>
-                </div>
-                <div class="col-lg-4 text-center">
-                    <h5>
-                        <strong>Blog Project</strong>
-                    </h5>
-                    <hr />
-                    <p>
-                        Tüm hakları saklıdır &copy;<br />
-                        Blog Project @DateTime.Now.Year
-                    </p>
-                </div>
-                <div class="col-lg-4 text-center">
-                    <h5>
-                        <strong>E-Bülten Üyeliği</strong>
-                    </h5>
-                    <hr />
-                    <div class="col-md-10 col-lg-offset-1">
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+                    <div class="col-lg-4 text-center">
+                        <h5>
+                            <strong>Site Haritası</strong>
+                        </h5>
+                        <hr />
                         <p>
-                            Consectetur adipiscing elit fusce vel.
+                            <a href="#">Hakkımızda</a><br />
+                            <a href="#">En Beğenilenler</a><br />
+                            <a href="#">Son Yazılar</a><br />
                         </p>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="e-mail adresiniz" />
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="submit">
-                                    <span class="glyphicon glyphicon-send"></span> Gönder
-                                </button>
-                            </span>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <h5>
+                            <strong>Blog Project</strong>
+                        </h5>
+                        <hr />
+                        <p>
+                            Tüm hakları saklıdır &copy;<br />
+                            Blog Project @DateTime.Now.Year
+                        </p>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <h5>
+                            <strong>E-Bülten Üyeliği</strong>
+                        </h5>
+                        <hr />
+                        <div class="col-md-10 col-lg-offset-1">
+                            <p>
+                                Consectetur adipiscing elit fusce vel.
+                            </p>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="e-mail adresiniz" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">
+                                        <span class="glyphicon glyphicon-send"></span> Gönder
+                                    </button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
 
-    </div>
-    <!-- /.container -->
-    <!-- Bootstrap Core JavaScript -->
-    <script src="~/Content/js/bootstrap.min.js"></script>
+        </div>
+        <!-- /.container -->
+        <!-- Bootstrap Core JavaScript -->
+        <script src="~/Content/js/bootstrap.min.js"></script>
 
 </body>
 

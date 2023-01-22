@@ -15,8 +15,7 @@ using BlogProject.BLL.Abstract;
 namespace BlogProject.BLL
 {
     public class UserManager:ManagerBase<User>
-    {
-       
+    {       
         public BusinessLayerResult<User> RegisterUser(RegisterViewModel model)
         {
             // Kullanıcı username kontrolü..
