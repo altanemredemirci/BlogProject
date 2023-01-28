@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlogManager.cs" />
+    <Compile Include="CommentManager.cs" />
+    <Compile Include="LikeManager.cs" />
     <Compile Include="Results\BusinessLayerResult.cs" />
     <Compile Include="CategoryManager.cs" />
     <Compile Include="Abstract\ManagerBase.cs" />

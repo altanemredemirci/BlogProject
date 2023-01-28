@@ -12,7 +12,7 @@ namespace BlogProject.BLL.Abstract
     public abstract class ManagerBase<T> : IRepository<T> where T : class
     {
         private Repository<T> repo = new Repository<T>(); 
-        public int Delete(T obj)
+        public virtual int Delete(T obj)
         {
             return repo.Delete(obj);
         }

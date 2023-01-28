@@ -85,7 +85,10 @@ namespace BlogProject.UI.Controllers
             ModelState.Remove("ModifiedUsername");
             if (ModelState.IsValid)
             {
-                cm.Update(category);
+                Category cat = cm.Find(x => x.Id == category.Id);
+                cat.Title = category.Title;
+                cat.Description=category.Description;
+                cm.Update(cat);
                 return RedirectToAction("Index");
             }
             return View(category);
