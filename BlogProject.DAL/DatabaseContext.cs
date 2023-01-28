@@ -16,10 +16,26 @@ namespace BlogProject.DAL
 
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //FluentAPI
+
+            modelBuilder.Entity<Blog>()
+                .HasMany(b => b.Comments)
+                .WithRequired(c => c.Blog)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Blog>()
+                .HasMany(b => b.Likes)
+                .WithRequired(c => c.Blog)
+                .WillCascadeOnDelete(true);
+        }
+
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Liked> Likes { get; set; }
+
     }
 }

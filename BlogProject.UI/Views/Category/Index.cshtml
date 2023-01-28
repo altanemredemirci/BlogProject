@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BlogProject.Entity.Category>
+﻿@using BlogProject.UI
+@model IEnumerable<BlogProject.Entity.Category>
 
 @{
     ViewBag.Title = "Index";
@@ -8,9 +9,7 @@
     <h2>Kategoriler</h2>
 
     <p>
-       <a href="/Category/Create" class="btn btn-primary">
-           <span class="glyphicon glyphicon-plus"></span> Create
-       </a>
+        @Bootstrap.LinkButton("/Category/Create", "primary", null, "", "plus", "Create");      
     </p>
     <table class="table">
         <tr>
@@ -51,16 +50,11 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    <a href="/Category/Edit/@item.Id" class="btn btn-warning btn-xs" title="Edit">
-                        <span class="glyphicon glyphicon-edit"></span>
-                    </a>
-                    <a href="/Category/Details/@item.Id" class="btn btn-info btn-xs" title="Details">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </a>
-                    <a href="/Category/Delete/@item.Id" class="btn btn-danger btn-xs" title="Delete">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </a>
-                   
+                    @Bootstrap.LinkButton("/Category/Edit/"+item.Id, "warning", "btn-xs", "Edit", "edit", null)
+                    @Bootstrap.LinkButton("/Category/Details/"+item.Id, "info", "btn-xs", "Details", "search", null)
+                    @Bootstrap.LinkButton("/Category/Delete/"+item.Id, "danger", "btn-xs", "Delete", "trash", null)
+                                       
+
                 </td>
             </tr>
         }
