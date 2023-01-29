@@ -7,8 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BlogProject.BLL;
+using BlogProject.BLL.Results;
 using BlogProject.Entity;
-using BlogProject.UI.Data;
 
 namespace BlogProject.UI.Controllers
 {
@@ -29,7 +29,7 @@ namespace BlogProject.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = userManager.Find(u=> u.Id==id);
+            User user = userManager.Find(u => u.Id == id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -43,15 +43,23 @@ namespace BlogProject.UI.Controllers
             return View();
         }
 
- 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(User user)
         {
+            ModelState.Remove("ModifiedUsername");
             if (ModelState.IsValid)
             {
                 // TODO: Düzenlenecek.
-                userManager.Insert(user);
+                BusinessLayerResult<User> res = userManager.Insert(user);
+
+                if (res.Errors.Count > 0)
+                {
+                    res.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
+                    return View(user);
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -77,9 +85,16 @@ namespace BlogProject.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(User user)
         {
+            ModelState.Remove("ModifiedUsername");
             if (ModelState.IsValid)
             {
-                // TODO: düzenlenecek
+                BusinessLayerResult<User> res = userManager.Update(user);
+
+                if (res.Errors.Count > 0)
+                {
+                    res.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
+                    return View(user);
+                }
                 return RedirectToAction("Index");
             }
             return View(user);
@@ -108,15 +123,6 @@ namespace BlogProject.UI.Controllers
             User user = userManager.Find(u => u.Id == id);
             userManager.Delete(user);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

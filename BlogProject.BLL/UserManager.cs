@@ -49,7 +49,7 @@ namespace BlogProject.BLL
             {   
                 // TODO : aktivasyon mail'ı atılacak
                 // res.Result.ActivateGuid
-                int dbResult = Insert(new User()
+                int dbResult =base.Insert(new User()
                 {
                     Username = model.Username,
                     Email = model.Email,
@@ -119,8 +119,6 @@ namespace BlogProject.BLL
             }
             return res;
         }
-
-
 
         private static string EmailControl(string email)
         {
@@ -271,7 +269,7 @@ namespace BlogProject.BLL
                 res.Result.ProfileImageFilename = model.ProfileImageFilename;
             }
 
-            if(Update(res.Result) == 0)
+            if(base.Update(res.Result) == 0)
             {
                 res.AddError(ErrorMessageCode.ProfileCouldNotUpdated, "Profil Güncellenemedi");
             }
@@ -299,6 +297,82 @@ namespace BlogProject.BLL
             return res;
         }
 
+        public new BusinessLayerResult<User> Insert(User model)
+        {
+            BusinessLayerResult<User> res = new BusinessLayerResult<User>();
 
+            string message = UserManager.EmailControl(model.Email);
+            if (message != null)
+            {
+                res.AddError(ErrorMessageCode.EmailWrong, message);
+                return res;
+            }
+
+            User user = Find(i => i.Username == model.Username || i.Email == model.Email);
+
+            res.Result = model;
+
+            if (user != null)
+            {
+                if (user.Username == model.Username)
+                {
+                    res.AddError(ErrorMessageCode.UsernameAlreadyExists, "Kullanıcı adı kayıtlı");
+                }
+                if (user.Email == model.Email)
+                {
+                    res.AddError(ErrorMessageCode.EmailAlreadyExists, "Email adresi kayıtlı");
+                }
+            }
+            else
+            {
+                res.Result.ProfileImageFilename = "user.jpg";
+                res.Result.ActivateGuid = Guid.NewGuid();
+                
+                if (base.Insert(res.Result) == 0)
+                {
+                    res.AddError(ErrorMessageCode.UserCouldNotInserted, "Kullanıcı Eklenemedi");
+                }              
+
+               
+            }
+            return res;
+        }
+
+        public new BusinessLayerResult<User> Update(User model)
+        {
+            User db_user = Find(x => x.Id != model.Id && (x.Username == model.Username || x.Email == model.Email));
+
+            BusinessLayerResult<User> res = new BusinessLayerResult<User>();
+
+            res.Result = model;
+
+            if (db_user != null && db_user.Id != model.Id)
+            {
+                if (db_user.Email == model.Email)
+                {
+                    res.AddError(ErrorMessageCode.EmailAlreadyExists, "Email adresi kayıtlı");
+                }
+                if (db_user.Username == model.Username)
+                {
+                    res.AddError(ErrorMessageCode.UsernameAlreadyExists, "Kullanıcı adı kayıtlı");
+                }
+                return res;
+            }
+
+            res.Result = Find(x => x.Id == model.Id);
+            res.Result.Email = model.Email;
+            res.Result.Username = model.Username;
+            res.Result.Name = model.Name;
+            res.Result.Surname = model.Surname;
+            res.Result.Password = model.Password;
+            res.Result.IsActive = model.IsActive;
+            res.Result.IsAdmin = model.IsAdmin;           
+
+            if (base.Update(res.Result) == 0)
+            {
+                res.AddError(ErrorMessageCode.ProfileCouldNotUpdated, "Profil Güncellenemedi");
+            }
+            return res;
+        }
     }
 }
