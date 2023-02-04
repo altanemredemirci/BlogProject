@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Bootstrap.LinkButton("/Blog/Create", "primary", null, "", "plus", "Create")
 </p>
 <table class="table">
     <tr>
@@ -26,50 +26,38 @@
         <th>
             @Html.DisplayNameFor(model => model.LikeCount)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateOn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedOn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedUsername)
-        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsDraft)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LikeCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedUsername)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDraft)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LikeCount)
+            </td>
+            <td width="120">
+                @Bootstrap.LinkButton("/Blog/Edit/" + item.Id, "warning", "btn-xs", "Edit", "edit", null)
+                @Bootstrap.LinkButton("/Blog/Details/" + item.Id, "info", "btn-xs", "Details", "search", null)
+                @Bootstrap.LinkButton("/Blog/Delete/" + item.Id, "danger", "btn-xs", "Delete", "trash", null)
+            </td>
+        </tr>
+    }
 
 </table>
+<script>
+    $(function () {
+        $("footer").parent().hide();
+    })
+</script>

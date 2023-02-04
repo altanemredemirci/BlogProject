@@ -8,18 +8,23 @@ using System.Web;
 using System.Web.Mvc;
 using BlogProject.BLL;
 using BlogProject.Entity;
-using BlogProject.UI.Data;
+using BlogProject.UI.Models;
 
 namespace BlogProject.UI.Controllers
 {
     public class BlogController : Controller
     {
         private BlogManager blogManager = new BlogManager();
+        private CategoryManager categoryManager = new CategoryManager();
+        private LikeManager likeManager=new LikeManager();  
 
         // GET: Blog
         public ActionResult Index()
         {
-            var blogs = db.Blogs.Include(b => b.Category);
+            var blogs = blogManager.ListQueryable().Include("Category").Where(
+                    b => b.Owner.Id == CurrentSession.User.Id).OrderByDescending(
+                    b => b.ModifiedOn);
+
             return View(blogs.ToList());
         }
 
@@ -30,7 +35,7 @@ namespace BlogProject.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = blogManager.Find(b=> b.Id==id);
             if (blog == null)
             {
                 return HttpNotFound();
@@ -38,72 +43,88 @@ namespace BlogProject.UI.Controllers
             return View(blog);
         }
 
+
+        public ActionResult MyLikeBlogs()
+        {
+            var blogs = likeManager.ListQueryable().Include("LikedUser").Include("Blog").Where(
+                x => x.LikedUser.Id == CurrentSession.User.Id).Select(
+                x => x.Blog).Include("Category").Include("Owner").OrderByDescending(
+                x => x.ModifiedOn);
+
+
+
+            return View("Index",blogs.ToList());
+        }
+
         // GET: Blog/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Title");
+            ViewBag.CategoryId = new SelectList(categoryManager.List(), "Id", "Title");
             return View();
         }
 
-        // POST: Blog/Create
-        // Aşırı gönderim saldırılarından korunmak için bağlamak istediğiniz belirli özellikleri etkinleştirin. 
-        // Daha fazla bilgi için bkz. https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Text,IsDraft,LikeCount,CategoryId,CreateOn,ModifiedOn,ModifiedUsername")] Blog blog)
+        public ActionResult Create(Blog blog)
         {
+            ModelState.Remove("ModifiedUsername");
             if (ModelState.IsValid)
             {
-                db.Blogs.Add(blog);
-                db.SaveChanges();
+                blog.Owner = CurrentSession.User;
+                blogManager.Insert(blog);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Title", blog.CategoryId);
+            ViewBag.CategoryId = new SelectList(categoryManager.List(), "Id", "Title", blog.CategoryId);
             return View(blog);
         }
 
-        // GET: Blog/Edit/5
+        //// GET: Blog/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = blogManager.Find(x=> x.Id==id);
             if (blog == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Title", blog.CategoryId);
+            ViewBag.CategoryId = new SelectList(categoryManager.List(), "Id", "Title", blog.CategoryId);
             return View(blog);
         }
 
-        // POST: Blog/Edit/5
-        // Aşırı gönderim saldırılarından korunmak için bağlamak istediğiniz belirli özellikleri etkinleştirin. 
-        // Daha fazla bilgi için bkz. https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Text,IsDraft,LikeCount,CategoryId,CreateOn,ModifiedOn,ModifiedUsername")] Blog blog)
+        public ActionResult Edit(Blog blog)
         {
+            ModelState.Remove("ModifiedUsername");
             if (ModelState.IsValid)
             {
-                db.Entry(blog).State = EntityState.Modified;
-                db.SaveChanges();
+                var b = blogManager.Find(x=> x.Id== blog.Id);
+                b.IsDraft = blog.IsDraft;
+                b.CategoryId=blog.CategoryId;
+                b.Text=blog.Text;
+                b.Title=blog.Title;
+
+                blogManager.Update(b);
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Title", blog.CategoryId);
+            ViewBag.CategoryId = new SelectList(categoryManager.List(), "Id", "Title", blog.CategoryId);
             return View(blog);
         }
 
-        // GET: Blog/Delete/5
+        //// GET: Blog/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = blogManager.Find(x => x.Id == id);
             if (blog == null)
             {
                 return HttpNotFound();
@@ -116,19 +137,9 @@ namespace BlogProject.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Blog blog = db.Blogs.Find(id);
-            db.Blogs.Remove(blog);
-            db.SaveChanges();
+            Blog blog = blogManager.Find(x => x.Id == id);
+            blogManager.Delete(blog);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

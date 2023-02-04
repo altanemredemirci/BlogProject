@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlogProject.BLL
 {
-    internal class LikeManager:ManagerBase<Liked>
+    public class LikeManager:ManagerBase<Liked>
     {
     }
 }
