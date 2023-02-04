@@ -26,3 +26,30 @@
         <span class="glyphicon glyphicon-@icon"></span> @text
     </button>
 }
+
+
+@helper ModalPopUp(string id="myModal",string title="Modal Title",bool showCloseButton = true)
+{
+    <!-- Modal -->
+    <div class="modal fade" id="@id" name="@id" tabindex="-1" aria-labelledby="@(id+"_label")" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" id="@(id+"_header")">                  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="@(id+"_label")">@title</h4>
+                </div>
+                <div class="modal-body" id="@(id+"_body")">
+                    ...
+                </div>
+                <div class="modal-footer" id="@(id+"_footer")">
+                    @if(showCloseButton)
+                    {
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    }                   
+                </div>
+            </div>
+        </div>
+    </div>
+}

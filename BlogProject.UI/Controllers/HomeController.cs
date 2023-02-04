@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using BlogProject.Entity.Messages;
 using BlogProject.UI.ViewModels;
 using BlogProject.BLL.Results;
+using BlogProject.UI.Models;
 
 namespace BlogProject.UI.Controllers
 {
@@ -175,7 +176,7 @@ namespace BlogProject.UI.Controllers
             {
                 return RedirectToAction("login");
             }
-            User currentUser = Session["login"] as User;
+            User currentUser = CurrentSession.User;
 
             //BusinessLayerResult<User> res = um.GetUserById(currentUser.Id);
 
@@ -196,7 +197,7 @@ namespace BlogProject.UI.Controllers
                 return RedirectToAction("login");
             }
 
-            User currentUser = Session["login"] as User;
+            User currentUser = CurrentSession.User;
 
 
             return View(currentUser);
@@ -230,16 +231,14 @@ namespace BlogProject.UI.Controllers
                 return View("Error", errorObj);
             }
 
-            Session["login"] = res.Result; //Profil güncellendiği için session güncellendi.
+            CurrentSession.Set<User>("login",res.Result); //Profil güncellendiği için session güncellendi.
 
             return RedirectToAction("ShowProfile");
         }
 
         public ActionResult DeleteProfile()
         {
-            User currentUser = Session["login"] as User;
-            BusinessLayerResult<User> res = um.RemoveUserById(currentUser.Id);
-
+            BusinessLayerResult<User> res = um.RemoveUserById(CurrentSession.User.Id);
             if (res.Errors.Count > 0)
             {
                 ErrorViewModel errorNotifyObj = new ErrorViewModel()

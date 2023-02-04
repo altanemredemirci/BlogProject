@@ -80,7 +80,7 @@
                             <div><hr /></div>
                             <div class="ratings">
                                 <p class="pull-right">
-                                    <button class="btn btn-default btn-sm">
+                                    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal_comment" data-blog-id="@blog.Id">
                                         <span class="glyphicon glyphicon-comment"></span> Yorumlar
                                     </button>
                                 </p>
@@ -102,3 +102,17 @@
     </div>
 
 
+@Bootstrap.ModalPopUp(id:"modal_comment",title:"Yorumlar")
+
+<script>
+    $(function () {
+        $('#modal_comment').on('show.bs.modal', function (e) {
+
+            var btn = $(e.relatedTarget);
+            var blogid = btn.data("blog-id");
+            console.log(blogid)
+
+            $('#modal_comment_body').load("/Comment/ShowBlogComments/"+blogid);
+        })
+    })
+</script>
