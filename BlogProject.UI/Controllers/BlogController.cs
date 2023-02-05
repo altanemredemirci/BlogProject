@@ -141,5 +141,19 @@ namespace BlogProject.UI.Controllers
             blogManager.Delete(blog);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult GetLiked(int[] ids)
+        {
+            if (CurrentSession.User != null)
+            {
+                List<int> likedBlogIds = likeManager.List(
+                x => x.LikedUser.Id == CurrentSession.User.Id && ids.Contains(x.Blog.Id)).Select(
+                x => x.Blog.Id).ToList();
+
+                return Json(new { result = likedBlogIds });
+            }
+            return Json(new { result = false });
+        } 
     }
 }

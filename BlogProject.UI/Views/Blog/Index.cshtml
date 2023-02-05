@@ -47,7 +47,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LikeCount)
             </td>
-            <td width="120">
+            <td width="150">
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal_comment" data-blog-id="@item.Id">
+                    <span class="glyphicon glyphicon-comment"></span>
+                </button>
+
                 @Bootstrap.LinkButton("/Blog/Edit/" + item.Id, "warning", "btn-xs", "Edit", "edit", null)
                 @Bootstrap.LinkButton("/Blog/Details/" + item.Id, "info", "btn-xs", "Details", "search", null)
                 @Bootstrap.LinkButton("/Blog/Delete/" + item.Id, "danger", "btn-xs", "Delete", "trash", null)
@@ -61,3 +65,5 @@
         $("footer").parent().hide();
     })
 </script>
+@Bootstrap.ModalPopUp(id: "modal_comment", title: "Yorumlar")
+<script src="~/Content/js/comment.js"></script>

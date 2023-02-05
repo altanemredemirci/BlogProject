@@ -8,111 +8,131 @@
 
 
 
-    <div class="row">
-        <!--Kategoriler-->
-        <div class="col-md-3">
-            @Html.Partial("_PartialCategories")
+<div class="row">
+    <!--Kategoriler-->
+    <div class="col-md-3">
+        @Html.Partial("_PartialCategories")
+    </div>
+
+    <div class="col-md-9">
+
+        <div class="row carousel-holder">
+
+            <div class="col-md-12">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img class="slide-image" src="~/Content/img/800x300.png" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="slide-image" src="~/Content/img/800x300.png" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="slide-image" src="~/Content/img/800x300.png" alt="">
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
-        <div class="col-md-9">
+        <div class="row">
+            @foreach (Blog blog in Model)
+            {
+                <div class="col-sm-4 col-lg-4 col-md-4" data-blog-id="@blog.Id">
+                    <div class="thumbnail">
+                        <img src="~/Content/img/320x150.png" alt="">
+                        <div class="caption">
+                            <h4>
+                                <a href="#">
+                                    @blog.Title
+                                </a>
+                            </h4>
+                            <h6 class="text-right">
+                                @blog.Owner.Username <span class="glyphicon glyphicon-user"></span>  <br />
+                                @blog.ModifiedOn.ToString("dd.MM.yy HH:mm")  <span class="glyphicon glyphicon-time"></span> <br />
+                            </h6>
 
-            <div class="row carousel-holder">
+                            @if (!string.IsNullOrEmpty(blog.Text) && blog.Text.Length > 60)
+                            {
+                                <p>@(blog.Text.Substring(0, 60)+"...")</p>
+                                <p class="pull-right"><a href="#" class="btn btn-default btn-sm">devamı<span class="glyphicon glyphicon-chevron-right"></span> </a></p>
 
-                <div class="col-md-12">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img class="slide-image" src="~/Content/img/800x300.png" alt="">
-                            </div>
-                            <div class="item">
-                                <img class="slide-image" src="~/Content/img/800x300.png" alt="">
-                            </div>
-                            <div class="item">
-                                <img class="slide-image" src="~/Content/img/800x300.png" alt="">
-                            </div>
+                            }
+                            else
+                            {
+                                <p> @blog.Text</p>
+                            }
+
+
                         </div>
-                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
+                        <div><hr /></div>
+                        <div class="ratings">
+                            <p class="pull-right">
+                                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal_comment" data-blog-id="@blog.Id">
+                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
+                                </button>
+                            </p>
+                            <p>
+                                <button class="btn btn-default btn-sm" type="button" data-liked="false" data-blog-id="@blog.Id">
+                                    <span class="glyphicon glyphicon-star-empty"></span> 
+                                    <span class="like-count"> @blog.LikeCount</span>
+                                </button>
+                            </p>
+                        </div>
                     </div>
                 </div>
+            }
 
-            </div>
-
-            <div class="row">
-                @foreach (Blog blog in Model)
-                {
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="~/Content/img/320x150.png" alt="">
-                            <div class="caption">
-                                <h4>
-                                    <a href="#">
-                                        @blog.Title
-                                    </a>
-                                </h4>
-                                <h6 class="text-right">
-                                    @blog.Owner.Username <span class="glyphicon glyphicon-user"></span>  <br />
-                                    @blog.ModifiedOn.ToString("dd.MM.yy HH:mm")  <span class="glyphicon glyphicon-time"></span> <br />
-                                </h6>
-
-                                @if (!string.IsNullOrEmpty(blog.Text) && blog.Text.Length > 60)
-                                {
-                                    <p>@(blog.Text.Substring(0, 60)+"...")</p>
-                                    <p class="pull-right"><a href="#" class="btn btn-default btn-sm">devamı<span class="glyphicon glyphicon-chevron-right"></span> </a></p>
-
-                                }
-                                else
-                                {
-                                    <p> @blog.Text</p>
-                                }
-
-
-                            </div>
-                            <div><hr /></div>
-                            <div class="ratings">
-                                <p class="pull-right">
-                                    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal_comment" data-blog-id="@blog.Id">
-                                        <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                    </button>
-                                </p>
-                                <p>
-                                    <button class="btn btn-default btn-sm" type="button">
-                                        <span class="glyphicon glyphicon-star-empty"></span> @blog.LikeCount
-                                    </button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-
-            </div>
 
         </div>
 
     </div>
 
+</div>
 
-@Bootstrap.ModalPopUp(id:"modal_comment",title:"Yorumlar")
+
+@Bootstrap.ModalPopUp(id: "modal_comment", title: "Yorumlar")
+
+<script src="~/Content/js/comment.js"></script>
 
 <script>
     $(function () {
-        $('#modal_comment').on('show.bs.modal', function (e) {
+        var blogids = [];
 
-            var btn = $(e.relatedTarget);
-            var blogid = btn.data("blog-id");
-            console.log(blogid)
-
-            $('#modal_comment_body').load("/Comment/ShowBlogComments/"+blogid);
+        $("div[data-blog-id]").each(function (i, e) {
+            blogids.push($(e).data("blog-id"));
         })
+
+
+        $.ajax({
+            method: "POST",
+            url: "/Blog/GetLiked",
+            data: {ids:blogids}
+        }).done(function (data) {
+            if (data.result != null && data.result.length > 0) {
+                for (var i = 0; i < data.result.length; i++) {
+                    var id = data.result[i];
+                    var likedBlog = $("div[data-blog-id=" + id + "]");
+                    var btn = likedBlog.find("button[data-liked]");
+                    var span = btn.children().first();
+
+                    btn.data("liked", true);
+                    span.removeClass("glyphicon-star-empty");
+                    span.addClass("glyphicon-star")
+                }
+            }
+        }).fail(function () { })
     })
 </script>

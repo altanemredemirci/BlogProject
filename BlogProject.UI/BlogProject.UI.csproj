@@ -103,6 +103,7 @@
     <Content Include="Content\img\user.jpg" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\comment.js" />
     <Content Include="Content\js\jquery.js" />
     <Content Include="Content\login-register.css" />
     <Content Include="DotNetVersionError.txt" />
