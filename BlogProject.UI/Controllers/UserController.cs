@@ -125,7 +125,6 @@ namespace BlogProject.UI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             User user = userManager.Find(u => u.Id == id);
-
          
             userManager.Delete(user);
             return RedirectToAction("Index");
