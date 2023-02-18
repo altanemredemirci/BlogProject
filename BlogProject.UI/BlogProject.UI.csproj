@@ -105,6 +105,7 @@
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\comment.js" />
     <Content Include="Content\js\jquery.js" />
+    <Content Include="Content\js\like.js" />
     <Content Include="Content\login-register.css" />
     <Content Include="DotNetVersionError.txt" />
     <Content Include="Global.asax" />

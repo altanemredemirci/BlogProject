@@ -86,7 +86,7 @@
                             </p>
                             <p>
                                 <button class="btn btn-default btn-sm" type="button" data-liked="false" data-blog-id="@blog.Id">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 
+                                    <span class="glyphicon glyphicon-star-empty like-star"></span> 
                                     <span class="like-count"> @blog.LikeCount</span>
                                 </button>
                             </p>
@@ -106,33 +106,6 @@
 @Bootstrap.ModalPopUp(id: "modal_comment", title: "Yorumlar")
 
 <script src="~/Content/js/comment.js"></script>
-
-<script>
-    $(function () {
-        var blogids = [];
-
-        $("div[data-blog-id]").each(function (i, e) {
-            blogids.push($(e).data("blog-id"));
-        })
+<script src="~/Content/js/like.js"></script>
 
 
-        $.ajax({
-            method: "POST",
-            url: "/Blog/GetLiked",
-            data: {ids:blogids}
-        }).done(function (data) {
-            if (data.result != null && data.result.length > 0) {
-                for (var i = 0; i < data.result.length; i++) {
-                    var id = data.result[i];
-                    var likedBlog = $("div[data-blog-id=" + id + "]");
-                    var btn = likedBlog.find("button[data-liked]");
-                    var span = btn.children().first();
-
-                    btn.data("liked", true);
-                    span.removeClass("glyphicon-star-empty");
-                    span.addClass("glyphicon-star")
-                }
-            }
-        }).fail(function () { })
-    })
-</script>

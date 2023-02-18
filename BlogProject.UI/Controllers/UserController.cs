@@ -112,6 +112,10 @@ namespace BlogProject.UI.Controllers
             {
                 return HttpNotFound();
             }
+            if (user.IsAdmin)
+            {
+                TempData["message"] = "Yönetici silinemez.";               
+            }
             return View(user);
         }
 
@@ -121,6 +125,8 @@ namespace BlogProject.UI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             User user = userManager.Find(u => u.Id == id);
+
+         
             userManager.Delete(user);
             return RedirectToAction("Index");
         }

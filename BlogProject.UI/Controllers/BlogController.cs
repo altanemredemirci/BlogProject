@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BlogProject.BLL;
 using BlogProject.Entity;
+using BlogProject.Entity.Messages;
 using BlogProject.UI.Models;
 
 namespace BlogProject.UI.Controllers
@@ -154,6 +155,50 @@ namespace BlogProject.UI.Controllers
                 return Json(new { result = likedBlogIds });
             }
             return Json(new { result = false });
-        } 
+        }
+
+        [HttpPost]
+        public ActionResult SetLikeState(int blogid, bool liked)
+        {
+            if (CurrentSession.User != null)
+            {
+                int res = 0;
+
+                Liked like = likeManager.Find(x => x.Blog.Id == blogid && x.LikedUser.Id == CurrentSession.User.Id);
+                Blog blog = blogManager.Find(x => x.Id == blogid);
+
+                if (like != null && liked == false)
+                {
+                    res = likeManager.Delete(like);
+
+                }
+                else if (like == null && liked)
+                {
+                    res = likeManager.Insert(new Liked()
+                    {
+                        LikedUser = CurrentSession.User,
+                        Blog = blog
+                    });
+                }
+
+                if (res > 0)
+                {
+                    if (liked)
+                    {
+                        blog.LikeCount++;
+                    }
+                    else
+                    {
+                        blog.LikeCount--;
+                    }
+
+                    res = blogManager.Update(blog);
+
+                    return Json(new { hasError = false, errorMessage = string.Empty, result = blog.LikeCount });
+                }
+                return Json(new { hasError = true, errorMessage = "Beğenme işlemi gerçekletirilemedi.", result = blog.LikeCount });
+            }
+            return View();
+        }
     }
 }
